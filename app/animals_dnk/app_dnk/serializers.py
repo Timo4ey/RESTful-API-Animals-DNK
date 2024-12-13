@@ -1,16 +1,9 @@
 from rest_framework import serializers
-import django_filters
 
 from app_dnk.models import GeneticTests
 
 
 class GeneticTestsSerializer(serializers.ModelSerializer):
-    animal_name = django_filters.CharFilter(lookup_expr="icontains")
-    species = django_filters.CharFilter(lookup_expr="icontains")
-    test_date = django_filters.DateTimeFilter()
-    milk_yield = django_filters.NumberFilter()
-    health_status = django_filters.CharFilter(lookup_expr="icontains")
-    created_at = django_filters.DateTimeFilter()
 
     class Meta:
         model = GeneticTests
@@ -20,3 +13,16 @@ class GeneticTestsSerializer(serializers.ModelSerializer):
 class GeneticTestsListSerializer(serializers.ListSerializer):
     # Указываем, какой сериализатор использовать для элементов списка
     child = GeneticTestsSerializer()
+
+
+
+class StatisticSerializer(serializers.Serializer):
+    species = serializers.CharField()
+    total_tests = serializers.IntegerField()
+    avg_milk_yield = serializers.FloatField()
+    max_milk_yield = serializers.FloatField()
+    good_health_percentage = serializers.FloatField()
+
+class StatisticListSerializer(serializers.ListSerializer):
+    child = StatisticSerializer()
+
