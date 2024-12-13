@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=75.0", "wheel", "build"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "RESTful_API_Animals_DNK"
+version = "0.0.1"
+description = "RESTful API that allows storing animal genetic test data and calculating aggregated statistics."
+authors = [
+    {name = "Timofey", email = "yakovishintimofey@gmail.com"}
+]
+dependencies = [
+    "Django==5.1.4",
+    "djangorestframework>=3.15.1",
+    "drf-yasg==1.21.7",
+    "django-filter==24.3",
+    "psycopg2-binary==2.9.10"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]

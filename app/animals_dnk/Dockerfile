@@ -1,12 +1,17 @@
 FROM python:3.11 AS base
 
-WORKDIR app
+RUN groupadd -r non-root && useradd -r -g non-root non-root
+WORKDIR /app
 
-COPY . app
+COPY . /app
 
-RUN pip install build \ 
+RUN pip install --upgrade pip \
+    && pip install setuptools wheel build \
     && python -m build \
     && pip install dist/*.whl
+    
+RUN chmod +x /app/entrypoint.sh
+RUN chown -R non-root:non-root /app    
+USER non-root
 
-
-CMD ["python", "app/animals_dnk/manage.py", "runserver"]
+CMD ["/app/entrypoint.sh"]
